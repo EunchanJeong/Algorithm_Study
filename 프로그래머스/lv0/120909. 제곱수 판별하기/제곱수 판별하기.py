@@ -1,5 +1,5 @@
 def solution(n):
-    if n**(1/2)%1 == 0:
+    if (n**(0.5)).is_integer():
         return 1
     else:
         return 2
