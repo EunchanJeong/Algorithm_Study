@@ -1,20 +1,17 @@
 import sys
 from collections import deque
 
-# N = int(sys.stdin.readline())
-N = int(input())
+N = int(sys.stdin.readline())
 error = 0
 
 for _ in range(N):
     reverse_flag = 0
     error = 0
 
-    # commands = sys.stdin.readline()
-    # size = int(sys.stdin.readline())
-    commands = input()
-    size = int(input())
+    commands = sys.stdin.readline().rstrip()
+    size = int(sys.stdin.readline())
 
-    tmp = input().replace('[', '').replace(']', '').split(',')
+    tmp = sys.stdin.readline().rstrip()[1:-1].split(',')
     dq = deque(tmp)
     if '' in tmp:
         dq.pop()
