@@ -1,22 +1,23 @@
 import sys
 input = sys.stdin.readline
- 
-n = int(input())
-cnt = 0
- 
-for _ in range(n):
-    s = input().rstrip()
+
+N = int(input())
+good_count = 0
+
+for _ in range(N):
+    text = input().rstrip()
     stack = []
- 
-    for i in range(len(s)):
+
+    for t in text:
         if stack:
-            if s[i] == stack[-1]:
+            if t == stack[-1]:
                 stack.pop()
             else:
-                stack.append(s[i])
+                stack.append(t)
         else:
-            stack.append(s[i])
- 
+            stack.append(t)
+        
     if not stack:
-        cnt += 1
-print(cnt)
+        good_count += 1
+
+print(good_count)
