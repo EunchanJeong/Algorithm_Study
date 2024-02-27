@@ -1,56 +1,67 @@
+from collections import deque
 import sys
 input = sys.stdin.readline
-from collections import deque
 
-dr = (-1, 1, 0, 0)
-dc = (0, 0, -1, 1)
+direction = [(1,0), (0,1), (-1,0), (0,-1)]
 
-def fbfs():
-    while fq:
-        r, c = fq.popleft()
-        for d in range(4):
-            nr = r + dr[d]
-            nc = c + dc[d]
-            if not (0 <= nr < R and 0 <= nc < C):
+def F_bfs(queue):
+    while queue:
+        x, y = queue.popleft()
+
+        for dx, dy in direction:
+            nx, ny = x+dx, y+dy
+            if not ((nx >= 0 and nx < R) and (ny >= 0 and ny < C)):
                 continue
-            if maze[nr][nc] == "#" or fire[nr][nc]:
+            if maze[nx][ny] == '#' or F_map[nx][ny]:
                 continue
-            fire[nr][nc] = fire[r][c] + 1
-            fq.append((nr, nc))
 
-def hbfs():
-    while hq:
-        r, c = hq.popleft()
-        for d in range(4):
-            nr = r + dr[d]
-            nc = c + dc[d]
-            if not (0 <= nr < R and 0 <= nc < C):
-                print(human[r][c])
+            F_map[nx][ny] = F_map[x][y]+1
+            queue.append((nx, ny))
+
+def J_bfs(queue):
+    while queue:
+        x, y = queue.popleft()
+
+        for dx, dy in direction:
+
+            nx, ny = x+dx, y+dy
+
+            if not((nx >= 0 and nx < R) and (ny >= 0 and ny < C)):
+                print(J_map[x][y])
                 return
-            if human[nr][nc] or maze[nr][nc] == "#":
+            
+            if maze[nx][ny] == '#' or J_map[nx][ny]:
                 continue
-            if fire[nr][nc] and human[r][c] + 1 >= fire[nr][nc]:
+            if F_map[nx][ny] and J_map[x][y]+1 >= F_map[nx][ny]:
                 continue
-            human[nr][nc] = human[r][c] + 1
-            hq.append((nr, nc))
-    print("IMPOSSIBLE")
-    return
 
-# main
+            J_map[nx][ny] = J_map[x][y]+1
+            queue.append((nx, ny))
+
+    print('IMPOSSIBLE')
+    return
+          
 R, C = map(int, input().split())
+
 maze = []
-hq = deque()
-fq = deque()
-human = [[0] * C for _ in range(R)]
-fire = [[0] * C for _ in range(R)]
+J_map = [[0]*C for _ in range(R)]
+F_map = [[0]*C for _ in range(R)]
+
+J_queue = deque()
+F_queue = deque()
+
+for _ in range(R):
+    maze.append(input().rstrip())
+
 for i in range(R):
-    maze.append(list(input().strip()))
     for j in range(C):
-        if maze[i][j] == "J":
-            hq.append((i, j))
-            human[i][j] = 1
-        elif maze[i][j] == "F":
-            fq.append((i, j))
-            fire[i][j] = 1
-fbfs()
-hbfs()
+        if maze[i][j] == 'J':
+            J_queue.append((i, j))
+            J_map[i][j] = 1
+        elif maze[i][j] == 'F':
+            F_queue.append((i, j))
+            F_map[i][j] = 1
+
+
+F_bfs(F_queue)
+J_bfs(J_queue)
