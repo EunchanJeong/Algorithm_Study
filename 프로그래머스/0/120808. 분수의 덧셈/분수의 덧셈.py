@@ -27,10 +27,9 @@ def solution(numer1, denom1, numer2, denom2):
     
     numer = numer1+numer2
 
+    g = math.gcd(numer, denom)
+    numer //= g
+    denom //= g
     
-    while math.gcd(numer, denom) != 1:
-        t = math.gcd(numer, denom)
-        numer //= t
-        denom //= t
     answer = [numer, denom]
     return answer
