@@ -1,0 +1,9 @@
+SELECT ID,
+        IFNULL(
+            (SELECT COUNT(E.ID)
+             FROM ECOLI_DATA E
+             GROUP BY E.PARENT_ID
+             HAVING E.PARENT_ID = ID), 0
+        ) AS CHILD_COUNT
+FROM ECOLI_DATA
+ORDER BY ID;
