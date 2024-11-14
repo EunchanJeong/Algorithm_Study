@@ -4,15 +4,16 @@ input = sys.stdin.readline
 
 N, K = map(int, input().split())
 
-MAX = 100001
+MAX =  100001
 time = [-1] * MAX
 
 def bfs(x, y):
     if x == y:
         print(0)
         return
-    
+
     q = deque()
+
     q.append(x)
     time[x] = 0
 
@@ -31,5 +32,6 @@ def bfs(x, y):
                 else:
                     time[nx] = time[x] + 1
                     q.append(nx)
+
 
 bfs(N, K)
