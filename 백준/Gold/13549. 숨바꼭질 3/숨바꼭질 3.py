@@ -33,5 +33,4 @@ def bfs(x, y):
                     time[nx] = time[x] + 1
                     q.append(nx)
 
-
 bfs(N, K)
