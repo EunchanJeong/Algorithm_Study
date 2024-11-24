@@ -3,14 +3,20 @@ input = sys.stdin.readline
 
 N = int(input())
 M = int(input())
-S = input()
-
-P = 'IO'* N + 'I'
+S = input().strip()
 
 count = 0
-for i in range(M-len(P)+1):
-    if S[i] == 'I':
-        if S[i:i+len(P)] == P:
+pattern_count = 0 
+i = 0
+
+while i < M - 1:
+    if S[i:i+3] == "IOI":
+        pattern_count += 1
+        if pattern_count >= N: 
             count += 1
+        i += 2  
+    else:
+        pattern_count = 0
+        i += 1
 
 print(count)
