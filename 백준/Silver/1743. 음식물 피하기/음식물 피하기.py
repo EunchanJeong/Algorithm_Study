@@ -35,6 +35,7 @@ def bfs(start):
 result = 0
 
 for start in g:
-    result = max(result, bfs(start))
+    if visited[start[0]][start[1]] == 0:
+        result = max(result, bfs(start))
 
 print(result)
