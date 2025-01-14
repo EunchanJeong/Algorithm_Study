@@ -23,7 +23,7 @@ public class Main {
                 stopPoint++;
             }
 
-            if(stopPoint == zeroCount/2) {
+            if(stopPoint == oneCount/2) {
                 break;
             }
         }
@@ -33,7 +33,6 @@ public class Main {
         for(int i = S.size()-1; i >= 0; i--) {
             if(S.get(i) == '0') {
                 S.remove(i);
-                i--;
                 stopPoint++;
             }
 
