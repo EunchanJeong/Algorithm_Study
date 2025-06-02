@@ -35,13 +35,13 @@ class Solution {
             }
         }
         
-        int leverCount = leverBFS(map, height, width, sh, sw);
+        int leverCount = bfs(map, height, width, sh, sw, 'L');
         
         if(leverCount == -1) {
             return -1;
         }
         
-        int exitCount = exitBFS(map, height, width, lh, lw);
+        int exitCount = bfs(map, height, width, lh, lw, 'E');
         
         if(exitCount == -1) {
             return -1;
@@ -62,7 +62,7 @@ class Solution {
         }
     }
     
-    public int leverBFS(char[][] map, int height, int width, int x, int y) {
+    public int bfs(char[][] map, int height, int width, int x, int y, char destination) {
         Deque<Point> dq = new LinkedList<>();
         
         int[][] visited = new int[height][width];
@@ -87,47 +87,7 @@ class Solution {
                 int ny = y + dy[i];
                 
                 if(nx >= 0 && nx < height && ny >= 0 && ny < width && visited[nx][ny] == -1) {
-                    if(map[nx][ny] == 'L') {
-                        return visited[x][y] + 1;
-                    }
-                    
-                    else if(map[nx][ny] != 'X') {
-                        visited[nx][ny] = visited[x][y] + 1;
-                        dq.add(new Point(nx, ny));
-                    }
-                }
-            }
-        }
-        return -1;
-        
-    }
-    
-    public int exitBFS(char[][] map, int height, int width, int x, int y) {
-        Deque<Point> dq = new LinkedList<>();
-        
-        int[][] visited = new int[height][width];
-        
-        for(int i = 0; i < height; i++) {
-            for(int j = 0; j < width; j++) {
-                visited[i][j] = -1;
-            }
-        }
-        
-        visited[x][y] = 0;
-        dq.add(new Point(x, y));
-        
-        while(!dq.isEmpty()) {
-            Point point = dq.poll();
-            
-            x = point.x;
-            y = point.y;
-            
-            for(int i = 0; i < 4; i++) {
-                int nx = x + dx[i];
-                int ny = y + dy[i];
-                
-                if(nx >= 0 && nx < height && ny >= 0 && ny < width && visited[nx][ny] == -1) {
-                    if(map[nx][ny] == 'E') {
+                    if(map[nx][ny] == destination) {
                         return visited[x][y] + 1;
                     }
                     
