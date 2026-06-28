@@ -1,20 +1,16 @@
+import java.util.Arrays;
+
 class Solution {
     public String solution(String s) {
-        String[] arr = s.split(" ");
+    
+        String[] strArray = s.split(" ");
         
-        int min = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
+        int[] intArray = Arrays.stream(strArray)
+                                .mapToInt(Integer::parseInt)
+                                .toArray();
         
-        for(String c : arr) {
-            int num = Integer.parseInt(c);
-            
-            if(num < min) {
-                min = num;
-            }
-            if(num > max) {
-                max = num;
-            }
-        }
-        return min + " " + max;
+        Arrays.sort(intArray);
+        
+        return intArray[0] + " " + intArray[intArray.length - 1];
     }
 }
